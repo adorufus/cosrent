@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CostumeController;
+use App\Http\Controllers\StoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,3 +32,27 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('user', [AuthController::class, 'me']);
 });
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'store',
+], function($router) {
+   Route::post('create', [StoreController::class, 'create']);
+   Route::get('all', [StoreController::class, 'getAll']);
+   Route::get('single', [StoreController::class, 'getById']);
+   Route::put('edit', [StoreController::class, 'update']);
+   Route::delete('delete', [StoreController::class, 'delete']);
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'costume',
+], function($router) {
+    Route::post('create', [CostumeController::class, 'create']);
+    Route::get('all', [CostumeController::class, 'getCostume']);
+    Route::get('single', [CostumeController::class, 'getCostumeById']);
+    Route::put('edit', [CostumeController::class, 'update']);
+    Route::delete('delete', [CostumeController::class, 'delete']);
+});
+
+
