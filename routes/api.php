@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CostumeController;
+use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\StoreController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -53,6 +54,17 @@ Route::group([
     Route::get('single', [CostumeController::class, 'getCostumeById']);
     Route::put('edit', [CostumeController::class, 'update']);
     Route::delete('delete', [CostumeController::class, 'delete']);
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'payment',
+], function($router) {
+    Route::post('create', [PaymentMethodController::class, 'create']);
+    Route::get('all', [PaymentMethodController::class, 'getAll']);
+    Route::get('single', [PaymentMethodController::class, 'getById']);
+    Route::put('edit', [PaymentMethodController::class, 'update']);
+    Route::delete('delete', [PaymentMethodController::class, 'delete']);
 });
 
 
